@@ -1,0 +1,97 @@
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="assets/css/reset.css">
+  <!-- includes bootstrap 3 as default, without integrity/crossorigin -->
+  <link rel="stylesheet"
+    href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+  >
+  <link rel="stylesheet" href="assets/css/style.css">
+  <script src="https://www.gstatic.com/firebasejs/3.6.4/firebase.js"></script>
+
+  <title>Train Scedule</title>
+</head>
+<body>
+<div class="container">
+      <div class="jumbotron">
+        <h1> <span class="glyphicon glyphicon-road"></span> Train Schedule</h1>
+      </div>
+  </div>
+
+    <!-- >>>>>>>>>>> Train Schedule <<<<<<<<< -->
+  <div class="container">
+    <!-- Current Train Schedule-->
+          <div class="panel">
+            <div class="panel-heading">
+              <h3 class="panel-title"><strong>Current Train Schedule</strong></h3>
+            </div>
+            <div class="panel-body">
+              <table class="table table-hover" id='train-table'>
+                <thead>
+                  <tr>
+                    <th>Train Name</th>
+                    <th>Train Destinaion</th>
+                    <th>Frequency (min)</th>
+                    <th>Next Arrival</th>
+                    <th>Minutes Away</th>
+                    <th>Update</th>
+                    <th>Remove</th>
+                  </tr>
+                </thead>
+                <tbody>
+                </tbody>
+              </table>
+            </div>
+          </div>
+  </div>  
+
+  <div class="container" id="formOne">
+
+      <div class="panel">
+        <div class="panel-heading">
+          <h3 class="panel-title"><strong>Add a Train</strong></h3>
+        </div>
+        <div class="panel-body">
+            
+            <form id="train-adder-form">
+              <div class="form-group">
+                <label for="trainName">Train Name:</label>
+                <input type="text" class="form-control" id="trainName" placeholder="Add Train Name Here">
+              </div>
+              <div class="form-group">
+                <label for="destination">Train Destination:</label>
+                <input type="text" class="form-control" id="destination" placeholder="Input Train Destinaion Here">
+              </div>
+               <div class="form-group">
+                <label for="firstTrainTime">First Train Time (HH:mm):</label>
+                <input type="time" class="form-control" id="firstTrainTime" placeholder="Input First Train Time Here">
+              </div>
+               <div class="form-group">
+                <label for=frequency>Train Frequency (min)</label>
+                <input type="number" class="form-control" id="frequency" placeholder="Input Frequency Of Train Here">
+              </div>
+              <button type="button" class="btn btn-default" id="addTrain"><span class="glyphicon glyphicon-plus"></span> Submit</button>
+              <button type="button" class="btn btn-default" id="buttonClear"><span class="glyphicon glyphicon-trash"></span> Clear Results</button>
+            </form>
+           </div>
+        </div>
+      </div>
+
+
+
+
+  <!-- >>>>>>>>>>> Footer Section <<<<<<<<< -->
+  <div class="footer container-fluid">
+  </div>
+
+
+
+<!-- Including scripts here -->
+
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script src="assets/javascript/main.js"></script>
+<script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
+</body>
+</html>

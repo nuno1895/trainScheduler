@@ -1,0 +1,25 @@
+/* Testing if refs properly*/
+/*body {
+  background-color: red;
+}*/
+
+body {
+	background: url("../images/bg1.jpg");
+	background-repeat: no-repeat;
+	background-attachment:fixed;
+	background-size: cover;
+	letter-spacing: 1px;
+}
+
+.jumbotron {
+	background-color: #748db2;
+	text-align: center;
+	color: white;
+	border: 1px solid white;
+
+}
+
+.panel-heading {
+	background-color: #748db2;
+	color: white;
+}
