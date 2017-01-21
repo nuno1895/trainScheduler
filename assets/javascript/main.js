@@ -21,6 +21,7 @@ var trainName = "";
 var destination = "";
 var firstTrainTime = "";
 var frequency = "";
+var newKey = "";
 
 $(document).ready(function() {
 
@@ -39,7 +40,7 @@ $(document).ready(function() {
 
 		// Creates local "temporary" object for holding employee data
  		var newTrain = {
-		   name: trainName,
+		   tname: trainName,
 		   dest: destination,
 		   firstTime: firstTrainTime,
 		   freq: frequency
@@ -47,15 +48,14 @@ $(document).ready(function() {
 
 		// Uploads train data to the database
 		trainDataBase.ref().push(newTrain);
+		console.log('keyRefOne' , trainDataBase.ref().key)
+		
+		// newKey = trainDataBase.ref(newTrain).key
+		console.log("nodeKey" , newKey)
 
-		// Logs everything to console
-		console.log(newTrain.name);
-		console.log(newTrain.dest);
-		console.log(newTrain.firstTime);
-		console.log(newTrain.freq);
 
 		// Alert
-		alert("train successfully added");
+		console.log("train successfully added");
 
 		 // Clears all of the text-boxes
 		$("#trainName").val("");
@@ -70,13 +70,19 @@ $(document).ready(function() {
 		//pull from database and prints to screen/html
 		trainDataBase.ref().on("child_added", function(childSnapshot) {
 
-		console.log(childSnapshot.val());
+		console.log("childSnapshot" , childSnapshot.val());
+
+
 
 		// Store everything into a variable.
-		var trainName = childSnapshot.val().name;
+		var trainName = childSnapshot.val().tname;
 		var destination = childSnapshot.val().dest;
 		var firstTrainTime = childSnapshot.val().firstTime;
 		var frequency = childSnapshot.val().freq;
+
+		//key for object
+		var newKey = childSnapshot.key;
+		
 
 		// Employee Info
 		console.log(trainName);
@@ -104,16 +110,38 @@ $(document).ready(function() {
 	    var tMinutesTillTrain = frequency - tRemainder;
 	    console.log("MINUTES TILL TRAIN: " + tMinutesTillTrain);
 
+	    
+
 	    // Next Train
 	    var nextTrain = moment().add(tMinutesTillTrain, "minutes");
 	    console.log("ARRIVAL TIME: " + moment(nextTrain).format("hh:mm"));
 	    nextTrainConverted = moment(nextTrain).format("hh:mm A")
 
+	    // .attr("id" , newKey )
 
-	    
 
-		 $("#train-table > tbody").append("<tr><td>" + trainName + "</td><td>" + destination + "</td><td>" + frequency + " Minutes" + "</td><td>" + tMinutesTillTrain + " Minutes" + "</td><td>" + nextTrainConverted + "</td><td>" + '<button class="update">Update</button>' + "</td></td>" + "</td><td>" + '<button class="remove">Remove</button>' + "</td></tr>");
+		 $("#train-table > tbody").append("<tr data-key=\""+newKey+"\"><td><input type=\"text\" value=\""+trainName+"\"></td><td>" + destination + "</td><td>" + frequency + " Minutes" + "</td><td>" + tMinutesTillTrain + " Minutes" + "</td><td>" + nextTrainConverted + "</td><td>" + '<button class="remove">Remove</button>' + "</td></tr>");
 		});
+
+	 	$(document).on("click", ".remove", function() {
+	 		var x = $(this).parents("tr").attr('data-key');
+	 		//delete row in HTML
+	 		var deleteRow = $(this).parents("tr").remove()
+	 		//Delete In Database
+	 		trainDataBase.ref().child(x).remove();
+	 	})
+
+	 	// setInterval(function(){
+	 		
+	 	// }, 1000 * 60) 
+	 
+	 	// $(document).on("click", ".update", function() {
+	 	// 	var x = $(this).parents("tr").attr('data-key');
+	 	// 	//delete row in HTML
+	 	// 	var updateRow = $(this).parents("tr").remove()
+	 	// 	//Delete In Database
+	 	// 	trainDataBase.ref().child(x).remove();
+	 	// })	
 
 		
 });
